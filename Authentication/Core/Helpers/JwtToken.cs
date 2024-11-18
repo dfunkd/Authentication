@@ -10,7 +10,7 @@ public static class JwtToken
 {
     public static async Task<string> GenerateJwtToken(User user, AppSettings appSettings)
     {
-        //Generate token that is valid for 7 days
+        //Generate token that is valid for 8 hours
         JwtSecurityTokenHandler tokenHandler = new();
         SecurityToken? token = await Task.Run(() =>
         {
@@ -18,7 +18,7 @@ public static class JwtToken
             SecurityTokenDescriptor tokenDescriptor = new()
             {
                 Subject = new ClaimsIdentity([new Claim("id", user.UserId.ToString())]),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddHours(8),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
